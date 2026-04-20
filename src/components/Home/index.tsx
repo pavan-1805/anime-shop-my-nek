@@ -1,6 +1,7 @@
 import HeroSlider from "./HeroSlider";
 import { ProductDrops } from "./ProductDrops";
 import { ArtifactDrops } from "./ArtifactDrops";
+import BrandNarrative from "./BrandNarrative";
 
 export function Home() {
   return (
@@ -9,6 +10,7 @@ export function Home() {
       <ProductDrops />
       <ArtifactDrops />
 
+      <BrandNarrative />
     </div>
   );
 }

@@ -5,6 +5,7 @@ import { LoreSection } from "@/components/LoreSection";
 import { Newsletter } from "@/components/Newsletter";
 import { Navbar } from "@/components/NavBar/index";
 import { Home } from "@/components/Home/index";
+import { Footer } from "@/components/Footer";
 export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
@@ -26,6 +27,7 @@ function Index() {
     <main className="bg-ink text-bone">
       <Navbar />
       <Home />
+      <Footer/>
       {/* <WorldsGrid />
       <LoreSection />
       <Newsletter />
