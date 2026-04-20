@@ -62,120 +62,57 @@ export default function HeroSlider() {
         </motion.div>
       </AnimatePresence>
 
-      {/* Sharingan background */}
+      {/* Deep black base — nearly solid */}
+      <div className="pointer-events-none absolute inset-0" style={{ background: "#03000a" }} />
+
+      {/* Classic Sharingan — red iris, orbit ring, 3 rotating tomoe */}
       <div className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden">
         <svg
           viewBox="0 0 400 400"
           className="absolute"
-          style={{ width: "min(800px, 120vw)", height: "min(800px, 120vw)", opacity: 0.08 }}
+          style={{ width: "min(780px, 120vw)", height: "min(780px, 120vw)", opacity: 0.28 }}
         >
-          <defs>
-            <radialGradient id="sgRed" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#cc1a1a" stopOpacity="1" />
-              <stop offset="60%" stopColor="#8b0000" stopOpacity="0.8" />
-              <stop offset="100%" stopColor="#1a0000" stopOpacity="0" />
-            </radialGradient>
-          </defs>
+          {/* Solid red iris */}
+          <circle cx="200" cy="200" r="182" fill="#cc1a1a" />
 
-          {/* Outer glow */}
-          <circle cx="200" cy="200" r="195" fill="url(#sgRed)" />
+          {/* Orbit ring — tomoe heads sit on this */}
+          <circle cx="200" cy="200" r="115" fill="none" stroke="#080000" strokeWidth="3" />
 
-          {/* Outer ring */}
-          <circle cx="200" cy="200" r="185" fill="none" stroke="#cc1a1a" strokeWidth="1.5" strokeOpacity="0.6" />
+          {/* Black center pupil */}
+          <circle cx="200" cy="200" r="24" fill="#080000" />
 
-          {/* Middle ring */}
-          <circle cx="200" cy="200" r="130" fill="none" stroke="#cc1a1a" strokeWidth="1" strokeOpacity="0.4" />
-
-          {/* Inner ring */}
-          <circle cx="200" cy="200" r="70" fill="none" stroke="#cc1a1a" strokeWidth="1" strokeOpacity="0.5" />
-
-          {/* Pupil */}
-          <circle cx="200" cy="200" r="28" fill="#0a0000" />
-          <circle cx="200" cy="200" r="20" fill="#1a0000" />
-
-          {/* 3 tomoe — rotating group */}
-          <g style={{ transformOrigin: "200px 200px", animation: "sharinganSpin 8s linear infinite" }}>
-            {[0, 120, 240].map((deg) => {
-              const rad = (deg * Math.PI) / 180;
-              const cx = 200 + 100 * Math.sin(rad);
-              const cy = 200 - 100 * Math.cos(rad);
-              const tailX = 200 + 130 * Math.sin(rad + 0.45);
-              const tailY = 200 - 130 * Math.cos(rad + 0.45);
-              return (
-                <g key={deg}>
-                  <circle cx={cx} cy={cy} r="18" fill="#0a0000" />
-                  <circle cx={cx} cy={cy} r="12" fill="#cc1a1a" fillOpacity="0.9" />
-                  <ellipse
-                    cx={(cx + tailX) / 2}
-                    cy={(cy + tailY) / 2}
-                    rx="9" ry="5"
-                    fill="#cc1a1a" fillOpacity="0.7"
-                    transform={`rotate(${deg + 30}, ${(cx + tailX) / 2}, ${(cy + tailY) / 2})`}
-                  />
-                </g>
-              );
-            })}
-          </g>
-
-          {/* Outer tomoe ring — counter-rotate */}
-          <g style={{ transformOrigin: "200px 200px", animation: "sharinganSpin 20s linear infinite reverse" }}>
-            {[0, 60, 120, 180, 240, 300].map((deg) => {
-              const rad = (deg * Math.PI) / 180;
-              const cx = 200 + 162 * Math.sin(rad);
-              const cy = 200 - 162 * Math.cos(rad);
-              return <circle key={deg} cx={cx} cy={cy} r="5" fill="#cc1a1a" fillOpacity="0.5" />;
-            })}
-          </g>
-
-          {/* Spoke lines */}
-          {[0, 60, 120, 180, 240, 300].map((deg) => {
-            const rad = (deg * Math.PI) / 180;
-            return (
-              <line
+          {/* 3 black circles on orbit ring, rotating */}
+          <g style={{ transformOrigin: "200px 200px", animation: "sharinganSpin 6s linear infinite" }}>
+            {[0, 120, 240].map((deg) => (
+              <circle
                 key={deg}
-                x1={200 + 70 * Math.sin(rad)} y1={200 - 70 * Math.cos(rad)}
-                x2={200 + 130 * Math.sin(rad)} y2={200 - 130 * Math.cos(rad)}
-                stroke="#cc1a1a" strokeWidth="0.8" strokeOpacity="0.3"
+                cx={200 + 115 * Math.sin((deg * Math.PI) / 180)}
+                cy={200 - 115 * Math.cos((deg * Math.PI) / 180)}
+                r="22"
+                fill="#080000"
               />
-            );
-          })}
+            ))}
+          </g>
         </svg>
       </div>
 
-      {/* Red smoke effect */}
+      {/* 3 red smoke puffs — bottom only */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         {[
-          { w: 500, h: 320, l: "-5%", t: "70%", delay: "0s", dur: "14s", color: "oklch(0.50 0.22 25 / 0.8)" },
-          { w: 420, h: 280, l: "25%", t: "75%", delay: "2.5s", dur: "18s", color: "oklch(0.45 0.20 22 / 0.7)" },
-          { w: 600, h: 380, l: "55%", t: "65%", delay: "5s", dur: "16s", color: "oklch(0.55 0.24 28 / 0.6)" },
-          { w: 380, h: 260, l: "75%", t: "72%", delay: "8s", dur: "20s", color: "oklch(0.48 0.21 24 / 0.7)" },
-          { w: 460, h: 300, l: "10%", t: "80%", delay: "11s", dur: "15s", color: "oklch(0.52 0.23 26 / 0.6)" },
-          { w: 340, h: 240, l: "42%", t: "78%", delay: "1s", dur: "22s", color: "oklch(0.47 0.20 23 / 0.5)" },
+          { w: 480, h: 280, l: "-6%",  t: "72%", delay: "0s",  dur: "18s", color: "rgba(160,20,10,0.35)" },
+          { w: 380, h: 220, l: "38%",  t: "76%", delay: "6s",  dur: "22s", color: "rgba(140,15,8,0.28)"  },
+          { w: 420, h: 250, l: "68%",  t: "70%", delay: "12s", dur: "20s", color: "rgba(160,20,10,0.30)" },
         ].map((s, i) => (
-          <div
-            key={i}
-            className="absolute rounded-full mix-blend-screen"
+          <div key={i} className="absolute rounded-full"
             style={{
-              width: s.w,
-              height: s.h,
-              left: s.l,
-              top: s.t,
+              width: s.w, height: s.h, left: s.l, top: s.t,
               background: `radial-gradient(ellipse, ${s.color} 0%, transparent 70%)`,
-              filter: "blur(55px)",
+              willChange: "transform, opacity",
               animation: `smokeRise ${s.dur} ${s.delay} ease-in-out infinite`,
             }}
           />
         ))}
       </div>
-
-      {/* Red vignette glow bottom-right */}
-      <div
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(ellipse 60% 60% at 80% 60%, oklch(0.55 0.24 25 / 0.35) 0%, transparent 70%)",
-        }}
-      />
 
       {/* Content */}
       <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl items-center gap-8 px-6 pt-20 pb-16 md:px-12 md:grid md:grid-cols-2">
